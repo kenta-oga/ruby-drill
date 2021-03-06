@@ -1,53 +1,60 @@
-class Food
-  @@foods = []
+def post_item(a_cart)
+  post = {}
+  puts "商品名を入力してください："
+  post[:name] = gets.chomp
+  puts "値段を入力してください："
+  post[:price] = gets.to_i
+  puts "個数を入力してください："
+  post[:count] = gets.to_i
+  line = "---------------------------"
 
-  def self.input
-    puts "料理名を入力してください:"
-    name = gets.chomp
-    puts "カロリーを入力してください:"
-    calory = gets.to_i
+  puts "商品名 : #{post[:name]}\n#{line}"
+  puts "値段 : #{post[:price]}\n#{line}"
+  puts "個数 : #{post[:count]}\n#{line}"
+  puts "合計金額 :#{post[:price] * post[:count]}\n#{line}"
 
-    food = Food.new(name, calory)
-    @@foods << food
-  end
+  a_cart << post
 
-  def self.show_all_calory
-    all_calory = 0
-    line = "-----------------------------"
-    puts line
-
-    @@foods.each do |food|
-      puts "#{food.name}  :#{food.calory}kcal"
-      all_calory = all_calory + food.calory
-    end
-
-    puts line
-    puts "カロリー合計  :#{all_calory}kcal"
-  end
-
-  def initialize(name, calory)
-    @name = name
-    @calory = calory
-  end
-
-  def name
-    return @name
-  end
-
-  def calory
-    return @calory
-  end
+  return a_cart
 end
 
+def check_items(a_cart)
+  total_price = 0
+  line = "---------------------------"
+  a_cart.each do |post|
+    puts "#{post[:name]}/#{post[:price]}/#{post[:count]}\n#{line}"
+    total_price += post[:price] * post[:count]
+  end
+  puts "合計金額 : #{total_price}"
+end
+
+def end_program
+  exit
+end
+
+def exception
+  puts "入力された値は無効な値です"
+end
+
+cart = []
+
 while true do
-  puts "[0]:カロリーを入力する"
-  puts "[1]:カロリーの合計を見る"
+  puts "商品数: #{cart.length}"
+  puts "[0]商品をカートに入れる"
+  unless cart.empty?
+    puts "[1]カートを確認する"
+  end
+  puts "[2]アプリを終了する"
+
   input = gets.to_i
 
-  if input == 0
-    Food.input           # カロリーの入力
-  elsif input == 1
-    Food.show_all_calory # カロリーの合計を表示
-    exit
+  if input == 0 then
+    cart = post_item(cart)
+  elsif input == 1 then
+    check_items(cart)
+  elsif input == 2 then
+    end_program
+  else
+    exception
   end
 end
