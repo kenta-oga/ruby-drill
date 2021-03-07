@@ -1,60 +1,54 @@
-def post_item(a_cart)
-  post = {}
-  puts "商品名を入力してください："
-  post[:name] = gets.chomp
-  puts "値段を入力してください："
-  post[:price] = gets.to_i
-  puts "個数を入力してください："
-  post[:count] = gets.to_i
-  line = "---------------------------"
+def registration_student(students)
+  student = {}
+  puts '生徒名を入力してください'
+  student[:name] = gets.chomp
+  puts '生徒の年齢を入力してください'
+  student[:age] = gets.chomp
 
-  puts "商品名 : #{post[:name]}\n#{line}"
-  puts "値段 : #{post[:price]}\n#{line}"
-  puts "個数 : #{post[:count]}\n#{line}"
-  puts "合計金額 :#{post[:price] * post[:count]}\n#{line}"
 
-  a_cart << post
+  puts "国語の得点は？"
+  student[:japanese] = gets.to_i
+  puts "数学の得点は？"
+  student[:math] = gets.to_i
+  puts "英語の得点は？"
+  student[:english] = gets.to_i
+  students << student
 
-  return a_cart
 end
 
-def check_items(a_cart)
-  total_price = 0
-  line = "---------------------------"
-  a_cart.each do |post|
-    puts "#{post[:name]}/#{post[:price]}/#{post[:count]}\n#{line}"
-    total_price += post[:price] * post[:count]
+def show_student_name(students)
+  i = 0
+  students.each do |student|
+    puts "#{i}: #{student[:name]}"
+    i += 1
   end
-  puts "合計金額 : #{total_price}"
+  puts '見たい生徒の番号を入力してください'
+  num = gets.to_i
+
+  student = students[num]
+  puts "名前: #{student[:name]}"
+  puts "年齢: #{student[:age]}"
+  puts "国語: #{student[:japanese]}"
+  puts "数学: #{student[:math]}"
+  puts "英語: #{student[:english]}"
 end
 
-def end_program
-  exit
-end
+students = []
 
-def exception
-  puts "入力された値は無効な値です"
-end
-
-cart = []
-
-while true do
-  puts "商品数: #{cart.length}"
-  puts "[0]商品をカートに入れる"
-  unless cart.empty?
-    puts "[1]カートを確認する"
-  end
-  puts "[2]アプリを終了する"
-
+while true
+  puts '行いたい項目を選択してください'
+  puts '[1]点数を登録する'
+  puts '[2]点数を確認する'
+  puts '[3]終了する'
   input = gets.to_i
-
-  if input == 0 then
-    cart = post_item(cart)
-  elsif input == 1 then
-    check_items(cart)
-  elsif input == 2 then
-    end_program
+  puts input
+  if input == 1
+    registration_student(students)
+  elsif input == 2
+    show_student_name(students)
+  elsif input == 3
+    exit
   else
-    exception
+    puts '無効な値です'
   end
 end
