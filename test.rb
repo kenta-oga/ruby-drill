@@ -1,54 +1,29 @@
-def registration_student(students)
-  student = {}
-  puts '生徒名を入力してください'
-  student[:name] = gets.chomp
-  puts '生徒の年齢を入力してください'
-  student[:age] = gets.chomp
+def janken
+  puts "[0]:グー\n[1]:チョキ\n[2]:パー"
+  player_hand = gets.to_i
 
+  program_hand = rand(3)
 
-  puts "国語の得点は？"
-  student[:japanese] = gets.to_i
-  puts "数学の得点は？"
-  student[:math] = gets.to_i
-  puts "英語の得点は？"
-  student[:english] = gets.to_i
-  students << student
+  jankens = ["グー", "チョキ", "パー"]
 
-end
+  puts "あなたの手:#{jankens[player_hand]}, わたしの手:#{jankens[program_hand]}"
 
-def show_student_name(students)
-  i = 0
-  students.each do |student|
-    puts "#{i}: #{student[:name]}"
-    i += 1
-  end
-  puts '見たい生徒の番号を入力してください'
-  num = gets.to_i
-
-  student = students[num]
-  puts "名前: #{student[:name]}"
-  puts "年齢: #{student[:age]}"
-  puts "国語: #{student[:japanese]}"
-  puts "数学: #{student[:math]}"
-  puts "英語: #{student[:english]}"
-end
-
-students = []
-
-while true
-  puts '行いたい項目を選択してください'
-  puts '[1]点数を登録する'
-  puts '[2]点数を確認する'
-  puts '[3]終了する'
-  input = gets.to_i
-  puts input
-  if input == 1
-    registration_student(students)
-  elsif input == 2
-    show_student_name(students)
-  elsif input == 3
-    exit
+  if player_hand == program_hand
+    puts "あいこで"
+    return true
+  elsif (player_hand == 0 && program_hand == 1) || (player_hand == 1 && program_hand == 2) || (player_hand == 2 && program_hand == 0)
+    puts "あなたの勝ちです"
+    return false
   else
-    puts '無効な値です'
+    puts "あなたの負けです"
+    return false
   end
+end
+
+next_game = true
+
+puts "最初はグー、じゃんけん..."
+
+while next_game do
+  next_game = janken
 end
