@@ -1,4 +1,13 @@
-now = Time.new
-puts "現在は西暦#{now.year}年#{now.month}月#{now.day}日"
-week = ["日","月","火","水","木","金","土"]
-puts week[now.wday] + '曜日です' 
+def close_far(a,b,c)
+  x = (a-b).abs
+  y = (a-c).abs
+  z = (b-c).abs
+
+  if x == 1 && z >= 2
+    puts "True"
+  elsif y == 1 && z >= 2
+    puts "True"
+  else
+    puts "False"
+  end
+end
